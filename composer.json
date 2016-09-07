@@ -2,7 +2,7 @@
   "name": "pcsg/gpmauthkeyfile",
   "type": "quiqqer-module",
   "description": "Authentifizierungs-Plugin für den QUIQQER Passwort-Manager. Authentifizierung anhand einer Datei, die hochgeladen wird.",
-  "version": "dev-dev",
+  "version": "dev-master",
   "license": "GPL-3.0+",
   "authors": [
     {
