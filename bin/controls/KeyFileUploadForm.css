@@ -1,0 +1,5 @@
+.pcsg-gpm-auth-keyfile-uploadform input,
+.pcsg-gpm-auth-keyfile-uploadform span {
+    clear: both;
+    float: left;
+}

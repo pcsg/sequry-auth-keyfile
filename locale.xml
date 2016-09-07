@@ -40,6 +40,11 @@
             <de><![CDATA[Das Passwort des Benutzers <b>[userName]</b> (#[userId]) kann nicht über das Standard QUIQQER-Interface geändert werden, da das Modul <b>gpmauthkeyfile</b> installiert ist und der Benutzer für dieses Plugin registriert ist. Das Passwort kann ausschließlich über das Authentifizierungs-Interface des Passwort-Managers geändert werden.]]></de>
         </locale>
 
+        <!-- Ajax -->
+        <locale name="exception.generatekeyfile.could.not.create.keyfile">
+            <de><![CDATA[Die Schlüssel-Datei konnte nicht generiert werden.]]></de>
+        </locale>
+
     </groups>
 
     <groups name="pcsg/gpmauthkeyfile" datatype="php,js">
@@ -49,8 +54,11 @@
     <groups name="pcsg/gpmauthkeyfile" datatype="js">
 
         <!-- Control: Registration -->
-        <locale name="registration.label">
-            <de><![CDATA[Schlüssel-Datei generieren]]></de>
+        <locale name="registration.generate.label">
+            <de><![CDATA[1. Schritt: Schlüssel-Datei generieren (Bitte speichern sie die generierte Date an einem sicheren Ort, wie z.B. einem USB-Stick, den sie immer mit sich führen)]]></de>
+        </locale>
+        <locale name="registration.upload.label">
+            <de><![CDATA[2. Schritt: Schlüssel-Datei hochladen]]></de>
         </locale>
         <locale name="registration.btn.text">
             <de><![CDATA[Schlüssel-Datei generieren]]></de>
@@ -71,6 +79,39 @@
         </locale>
         <locale name="changeauth.password.mismatch">
             <de><![CDATA[Die beiden Angaben für das neue Passwort stimmen nicht überein.]]></de>
+        </locale>
+
+        <!-- Control: KeyFileUploadForm -->
+        <locale name="keyfileuploadform.input.label">
+            <de><![CDATA[Schlüssel-Datei hochladen]]></de>
+        </locale>
+        <locale name="keyfileuploadform.not.available">
+            <de><![CDATA[Mit diesem Browser kann dieser Authentifizierungs-Faktor leider nicht verwendet werden.]]></de>
+        </locale>
+
+        <!-- Control: ChangeAuth -->
+        <locale name="changeauth.upload.old.label">
+            <de><![CDATA[Aktuelle Schlüssel-Datei hochladen]]></de>
+        </locale>
+        <locale name="changeauth.generate.label">
+            <de><![CDATA[Neue Schlüssel-Datei erzeugen]]></de>
+        </locale>
+        <locale name="changeauth.upload.new.label">
+            <de><![CDATA[Neue Schlüssel-Datei hochladen]]></de>
+        </locale>
+        <locale name="changeauth.upload.old.keyfile">
+            <de><![CDATA[Bitte laden Sie ihre aktuelle Schlüssel-Datei hoch]]></de>
+        </locale>
+        <locale name="changeauth.generate.keyfile">
+            <de><![CDATA[Bitte erzeugen Sie eine neue Schlüssel-Datei]]></de>
+        </locale>
+        <locale name="changeauth.upload.new.keyfile">
+            <de><![CDATA[Bitte laden Sie ihre neue Schlüssel-Datei hoch]]></de>
+        </locale>
+
+        <!-- Control: Authentication -->
+        <locale name="authentication.upload.label">
+            <de><![CDATA[Bitte laden Sie Ihre Schlüssel-Datei hoch]]></de>
         </locale>
 
     </groups>

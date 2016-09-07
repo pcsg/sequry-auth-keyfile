@@ -4,20 +4,20 @@
  * @module package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn
  * @author www.pcsg.de (Patrick Müller)
  *
- * @require qui/controls/Control
+ * @require qui/controls/buttons/Button
+ * @require Ajax
  * @require Locale
- * @require css!package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn.css
  *
  * @event onSubmit
  */
 define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
 
     'qui/controls/buttons/Button',
+
+    'Ajax',
     'Locale'
 
-    //'css!package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn.css'
-
-], function (QUIButton, QUILocale) {
+], function (QUIButton, QUIAjax, QUILocale) {
     "use strict";
 
     var lg = 'pcsg/gpmauthkeyfile';
@@ -30,55 +30,45 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
         Binds: [
             '$onInject',
             'getAuthData',
-            '$onClick'
+            '$onClick',
+            'isKeyGenerated'
         ],
 
         initialize: function (options) {
             this.parent(options);
 
-            this.$Categories = null;
-
             this.addEvents({
                 onInject: this.$onInject,
                 onClick: this.$onClick
             });
+
+            this.$keyGenerated = false;
         },
 
         /**
-         * create the domnode element
-         *
-         * @return {HTMLDivElement}
+         * event: on generate key btn click
          */
-        create: function () {
-            this.$Elm = this.parent();
-
-            this.$Elm.set(
-                'html',
-                '<label>' +
-                '<span class="gpm-auth-keyfile-title">' +
-                QUILocale.get(lg, 'registration.label') +
-                '</span>' +
-                '<div class="gpm-auth-keyfile-btn"/></div>' +
-                '</label>'
-            );
-
-            new QUIButton({
-                textimage: 'fa fa-key',
-                text     : QUILocale.get(lg, 'registration.btn.text'),
-                alt      : QUILocale.get(lg, 'registration.btn.text'),
-                title    : QUILocale.get(lg, 'registration.btn.text'),
-                events: {
-                    onClick: this.$onCreateKeyBtnClick
-                }
-            }).inject(
-                this.$Elm.getElement('.gpm-auth-keyfile-btn')
-            );
-
-            return this.$Elm;
-        },
-
         $onClick: function () {
-            console.log("click btn");
+            var self = this;
+
+            QUIAjax.get('package_pcsg_gpmauthkeyfile_ajax_generateKeyFile', function(downloadUrl) {
+                new Element('iframe', {
+                    src   : downloadUrl,
+                    id    : 'pcsg-gpm-auth-keyfile-download-' + String.uniqueID(),
+                    styles: {
+                        position: 'absolute',
+                        top     : -200,
+                        left    : -200,
+                        width   : 50,
+                        height  : 50
+                    }
+                }).inject(document.body);
+
+                self.disable();
+                self.$keyGenerated = true;
+            }, {
+                'package': 'pcsg/gpmauthkeyfile'
+            });
         },
 
         /**
@@ -91,6 +81,16 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
                 alt      : QUILocale.get(lg, 'registration.btn.text'),
                 title    : QUILocale.get(lg, 'registration.btn.text')
             });
+        },
+
+        /**
+         * Checks if a key has already been generated
+         *
+         * @return {boolean}
+         */
+        isKeyGenerated: function()
+        {
+            return this.$keyGenerated;
         }
     });
 });

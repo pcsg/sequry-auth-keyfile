@@ -1,0 +1,14 @@
+.gpm-auth-keyfile-authentication label {
+    width: 100% !important;
+}
+
+.gpm-auth-keyfile-authentication-upload {
+    float: left;
+    width: 100%;
+}
+
+.gpm-auth-keyfile-authentication-title {
+    float: left;
+    margin-bottom: 5px;
+    width: 100%;
+}

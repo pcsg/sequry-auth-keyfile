@@ -1,0 +1,21 @@
+.gpm-auth-keyfile-changeauth label {
+    width: 100% !important;
+}
+
+.gpm-auth-keyfile-changeauth-generate,
+.gpm-auth-keyfile-changeauth-upload-old {
+    margin-bottom: 20px;
+}
+
+.gpm-auth-keyfile-changeauth-generate,
+.gpm-auth-keyfile-changeauth-upload-old,
+.gpm-auth-keyfile-changeauth-upload-new {
+    float: left;
+    width: 100%;
+}
+
+.gpm-auth-keyfile-changeauth-title {
+    float: left;
+    margin-bottom: 5px;
+    width: 100%;
+}

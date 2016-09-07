@@ -14,11 +14,12 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Registration', [
 
     'qui/controls/Control',
     'package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn',
-    'Locale'
+    'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
+    'Locale',
 
-    //'css!package/pcsg/gpmauthkeyfile/bin/controls/Registration.css'
+    'css!package/pcsg/gpmauthkeyfile/bin/controls/Registration.css'
 
-], function (QUIControl, CreateKeyFileBtn, QUILocale) {
+], function (QUIControl, CreateKeyFileBtn, KeyFileUploadForm, QUILocale) {
     "use strict";
 
     var lg = 'pcsg/gpmauthkeyfile';
@@ -34,12 +35,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Registration', [
 
         initialize: function (options) {
             this.parent(options);
-
-            this.$Categories = null;
-
-            //this.addEvents({
-            //    onInject: this.$onInject
-            //});
+            this.$UploadForm = null;
         },
 
         /**
@@ -50,18 +46,34 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Registration', [
         create: function () {
             this.$Elm = this.parent();
 
+            this.$Elm.setProperty('class', 'gpm-auth-keyfile-registration');
+
             this.$Elm.set(
                 'html',
+                '<div class="gpm-auth-keyfile-registration-generate">' +
                 '<label>' +
-                '<span class="gpm-auth-keyfile-title">' +
-                QUILocale.get(lg, 'registration.label') +
+                '<span class="gpm-auth-keyfile-registration-title">' +
+                QUILocale.get(lg, 'registration.generate.label') +
                 '</span>' +
                 '<div class="gpm-auth-keyfile-btn"/></div>' +
-                '</label>'
+                '</label>' +
+                '</div>' +
+                '<div class="gpm-auth-keyfile-registration-upload">' +
+                '<label>' +
+                '<span class="gpm-auth-keyfile-registration-title">' +
+                QUILocale.get(lg, 'registration.upload.label') +
+                '</span>' +
+                '<div class="gpm-auth-keyfile-upload"/></div>' +
+                '</label>' +
+                '</div>'
             );
 
             new CreateKeyFileBtn().inject(
                 this.$Elm.getElement('.gpm-auth-keyfile-btn')
+            );
+
+            this.$UploadForm = new KeyFileUploadForm().inject(
+                this.$Elm.getElement('.gpm-auth-keyfile-upload')
             );
 
             return this.$Elm;
@@ -73,7 +85,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Registration', [
          * @return {string}
          */
         getRegistrationData: function () {
-            return this.$Elm.getElement('.gpm-auth-keyfile-input').value;
+            return this.$UploadForm.getKeyFileContent();
         }
     });
 });
