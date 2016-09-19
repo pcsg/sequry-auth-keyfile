@@ -14,9 +14,6 @@ use Pcsg\GroupPasswordManager\Security\Hash;
 function package_pcsg_gpmauthkeyfile_ajax_generateKeyFile()
 {
     $randomData   = base64_encode(Random::getRandomData(4096));
-
-    \QUI\System\Log::writeRecursive($randomData);
-
     $userId       = QUI::getUserBySession()->getId();
     $fileNameSalt = Random::getRandomData();
     $fileName     = mb_substr(base64_encode(Hash::create($userId, $fileNameSalt)), 0, 32);
