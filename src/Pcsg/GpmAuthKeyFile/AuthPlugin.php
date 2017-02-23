@@ -67,6 +67,10 @@ class AuthPlugin implements IAuthPlugin
             ));
         }
 
+        if (self::isAuthenticated($User)) {
+            return true;
+        }
+
         // get salt
         $result = QUI::getDataBase()->fetch(array(
 //            'select' => array(
