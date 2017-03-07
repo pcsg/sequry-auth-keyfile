@@ -25,7 +25,7 @@ use Pcsg\GroupPasswordManager\Security\Handler\Authentication;
  */
 class AuthPlugin implements IAuthPlugin
 {
-    const NAME = 'Key file Authentification';
+    const NAME = 'Schlüssel-Datei';
     const TBL  = 'pcsg_gpm_auth_keyfile';
 
     /**
@@ -408,7 +408,7 @@ class AuthPlugin implements IAuthPlugin
         Authentication::registerPlugin(
             self::class,
             self::NAME,
-            'Password authentication via key file'
+            'Authentifizierung per Schlüssel-Datei'
         );
     }
 
