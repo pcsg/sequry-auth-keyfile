@@ -12,20 +12,20 @@
  */
 define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
 
-    'qui/controls/Control',
+    'package/pcsg/grouppasswordmanager/bin/controls/authPlugins/Authentication',
     'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
     'Locale',
 
     'css!package/pcsg/gpmauthkeyfile/bin/controls/Authentication.css'
 
-], function (QUIControl, KeyFileUploadForm, QUILocale) {
+], function (AuthenticationBaseClass, KeyFileUploadForm, QUILocale) {
     "use strict";
 
     var lg = 'pcsg/gpmauthkeyfile';
 
     return new Class({
 
-        Extends: QUIControl,
+        Extends: AuthenticationBaseClass,
         Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/Authentication',
 
         Binds: [
@@ -38,18 +38,13 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
         },
 
         /**
-         * create the domnode element
-         *
-         * @return {HTMLDivElement}
+         * Event: onImport
          */
-        create: function () {
-            this.$Elm = this.parent();
+        $onImport: function () {
+            this.parent();
 
-            this.$Elm.setProperty('class', 'gpm-auth-keyfile-authentication');
-
-            this.$Elm.set(
-                'html',
-                '<div class="gpm-auth-keyfile-authentication-upload">' +
+            var Content = new Element('div', {
+                html: '<div class="gpm-auth-keyfile-authentication-upload">' +
                 '<label>' +
                 '<span class="gpm-auth-keyfile-authentication-title">' +
                 QUILocale.get(lg, 'authentication.upload.label') +
@@ -57,17 +52,32 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
                 '<div class="gpm-auth-keyfile-upload"/></div>' +
                 '</label>' +
                 '</div>'
-            );
+            }).inject(this.$Input, 'before');
 
             this.$UploadForm = new KeyFileUploadForm().inject(
-                this.$Elm.getElement('.gpm-auth-keyfile-upload')
+                Content.getElement('.gpm-auth-keyfile-upload')
             );
-
-            return this.$Elm;
         },
 
+        /**
+         * Focus the element for authentication data input
+         */
         focus: function () {
             this.$UploadForm.getElm().focus();
+        },
+
+        /**
+         * Enable the element for authentication data input
+         */
+        enable: function () {
+            this.$Input.disabled = false;
+        },
+
+        /**
+         * Disable the element for authentication data input
+         */
+        disable: function () {
+            this.$Input.disabled = true;
         },
 
         /**

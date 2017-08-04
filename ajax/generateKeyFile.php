@@ -1,6 +1,6 @@
 <?php
 
-use Pcsg\GroupPasswordManager\Security\SymmetricCrypto;
+use Pcsg\GroupPasswordManager\Security\HiddenString;
 use Pcsg\GroupPasswordManager\Security\Random;
 use Pcsg\GroupPasswordManager\Security\Hash;
 
@@ -16,7 +16,9 @@ function package_pcsg_gpmauthkeyfile_ajax_generateKeyFile()
     $randomData   = base64_encode(Random::getRandomData(4096));
     $userId       = QUI::getUserBySession()->getId();
     $fileNameSalt = Random::getRandomData();
-    $fileName     = mb_substr(base64_encode(Hash::create($userId, $fileNameSalt)), 0, 32);
+    $fileName     = mb_substr(base64_encode(Hash::create(
+        new HiddenString($userId), $fileNameSalt)
+    ), 0, 32);
 
     $varDir  = QUI::getPackage('pcsg/gpmauthkeyfile')->getVarDir();
     $keyFile = $varDir . $fileName . '.keyfile';
