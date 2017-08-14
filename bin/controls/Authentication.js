@@ -35,6 +35,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
         initialize: function (options) {
             this.parent(options);
             this.$UploadForm = null;
+            this.$Content    = null;
         },
 
         /**
@@ -43,7 +44,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
         $onImport: function () {
             this.parent();
 
-            var Content = new Element('div', {
+            this.$Content = new Element('div', {
                 html: '<div class="gpm-auth-keyfile-authentication-upload">' +
                 '<label>' +
                 '<span class="gpm-auth-keyfile-authentication-title">' +
@@ -55,7 +56,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
             }).inject(this.$Input, 'before');
 
             this.$UploadForm = new KeyFileUploadForm().inject(
-                Content.getElement('.gpm-auth-keyfile-upload')
+                this.$Content.getElement('.gpm-auth-keyfile-upload')
             );
         },
 
@@ -78,6 +79,20 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
          */
         disable: function () {
             this.$Input.disabled = true;
+        },
+
+        /**
+         * Show the element for authentication data input
+         */
+        show: function () {
+            this.$Content.setStyle('display', '');
+        },
+
+        /**
+         * Hide the element for authentication data input
+         */
+        hide: function () {
+            this.$Content.setStyle('display', 'none');
         },
 
         /**
