@@ -49,6 +49,13 @@
 
     <groups name="pcsg/gpmauthkeyfile" datatype="php,js">
 
+        <locale name="plugin.name">
+            <de><![CDATA[Passwort]]></de>
+        </locale>
+        <locale name="plugin.description">
+            <de><![CDATA[Authentifizierung per Passwort]]></de>
+        </locale>
+
     </groups>
 
     <groups name="pcsg/gpmauthkeyfile" datatype="js">
