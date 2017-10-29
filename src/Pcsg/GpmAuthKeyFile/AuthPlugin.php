@@ -418,11 +418,7 @@ class AuthPlugin implements IAuthPlugin
      */
     public static function registerPlugin()
     {
-        Authentication::registerPlugin(
-            self::class,
-            self::NAME,
-            'Authentifizierung per Schlüssel-Datei'
-        );
+        Authentication::registerPlugin(new self());
     }
 
     /**
