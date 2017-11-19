@@ -16,7 +16,7 @@ function package_pcsg_gpmauthkeyfile_ajax_generateKeyFile()
     $randomData   = base64_encode(Random::getRandomData(4096));
     $userId       = QUI::getUserBySession()->getId();
     $fileNameSalt = Random::getRandomData();
-    $fileName     = mb_substr(base64_encode(Hash::create(
+    $fileName     = mb_substr(bin2hex(Hash::create(
         new HiddenString($userId), $fileNameSalt)
     ), 0, 32);
 

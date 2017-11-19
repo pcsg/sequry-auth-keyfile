@@ -50,10 +50,10 @@
     <groups name="pcsg/gpmauthkeyfile" datatype="php,js">
 
         <locale name="plugin.name">
-            <de><![CDATA[Passwort]]></de>
+            <de><![CDATA[Schlüssel-Datei]]></de>
         </locale>
         <locale name="plugin.description">
-            <de><![CDATA[Authentifizierung per Passwort]]></de>
+            <de><![CDATA[Authentifizierung per Schlüssel-Datei]]></de>
         </locale>
 
     </groups>

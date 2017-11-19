@@ -4,30 +4,26 @@
  * @module package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth
  * @author www.pcsg.de (Patrick Müller)
  *
- * @require qui/controls/Control
- * @require Locale
- * @require css!package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth.css
- *
  * @event onSubmit
  */
 define('package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth', [
 
     'qui/QUI',
-    'qui/controls/Control',
+    'package/pcsg/grouppasswordmanager/bin/controls/authPlugins/ChangeAuth',
     'package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn',
     'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
     'Locale',
 
     'css!package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth.css'
 
-], function (QUI, QUIControl, CreateKeyFileBtn, KeyFileUploadForm, QUILocale) {
+], function (QUI, ChangeAuthBaseClass, CreateKeyFileBtn, KeyFileUploadForm, QUILocale) {
     "use strict";
 
     var lg = 'pcsg/gpmauthkeyfile';
 
     return new Class({
 
-        Extends: QUIControl,
+        Extends: ChangeAuthBaseClass,
         Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth',
 
         Binds: [
@@ -38,31 +34,24 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth', [
         initialize: function (options) {
             this.parent(options);
 
-            this.$UploadFormOld = null;
-            this.$UploadFormNew = null;
-            this.$KeyFileBtn    = null;
+            this.$UploadForm = null;
+            this.$KeyFileBtn = null;
+
+            this.addEvents({
+                onInject: this.$onInject
+            });
         },
 
         /**
-         * create the domnode element
+         * Event: onInject
          *
          * @return {HTMLDivElement}
          */
-        create: function () {
-            this.$Elm = this.parent();
-
+        $onInject: function () {
             this.$Elm.setProperty('class', 'gpm-auth-keyfile-changeauth');
 
             this.$Elm.set(
                 'html',
-                '<div class="gpm-auth-keyfile-changeauth-upload-old">' +
-                '<label>' +
-                '<span class="gpm-auth-keyfile-changeauth-title">' +
-                QUILocale.get(lg, 'changeauth.upload.old.label') +
-                '</span>' +
-                '<div class="gpm-auth-keyfile-upload"/></div>' +
-                '</label>' +
-                '</div>' +
                 '<div class="gpm-auth-keyfile-changeauth-generate">' +
                 '<label>' +
                 '<span class="gpm-auth-keyfile-changeauth-title">' +
@@ -85,63 +74,54 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth', [
                 this.$Elm.getElement('.gpm-auth-keyfile-changeauth-btn')
             );
 
-            this.$UploadFormOld = new KeyFileUploadForm().inject(
-                this.$Elm.getElement('.gpm-auth-keyfile-changeauth-upload-old')
-            );
-
-            this.$UploadFormNew = new KeyFileUploadForm().inject(
+            this.$UploadForm = new KeyFileUploadForm().inject(
                 this.$Elm.getElement('.gpm-auth-keyfile-changeauth-upload-new')
             );
 
             return this.$Elm;
         },
 
+        ///**
+        // * Checks if all necessary form fields are filled
+        // *
+        // * @return {boolean}
+        // */
+        //check: function () {
+        //    if (!this.$KeyFileBtn.isKeyGenerated()) {
+        //        QUI.getMessageHandler(function (MH) {
+        //            MH.addAttention(
+        //                QUILocale.get(lg, 'changeauth.generate.keyfile')
+        //            );
+        //        });
+        //
+        //        return false;
+        //    }
+        //
+        //    if (!this.$UploadForm.getKeyFileContent()) {
+        //        QUI.getMessageHandler(function (MH) {
+        //            MH.addAttention(
+        //                QUILocale.get(lg, 'changeauth.upload.new.keyfile')
+        //            );
+        //        });
+        //
+        //        return false;
+        //    }
+        //
+        //    return true;
+        //},
+
         /**
-         * Checks if all necessary form fields are filled
-         *
-         * @return {boolean}
+         * Enable the element for authentication data input
          */
-        check: function () {
-            if (!this.$UploadFormOld.getKeyFileContent()) {
-                QUI.getMessageHandler(function (MH) {
-                    MH.addAttention(
-                        QUILocale.get(lg, 'changeauth.upload.old.keyfile')
-                    );
-                });
-
-                return false;
-            }
-
-            if (!this.$KeyFileBtn.isKeyGenerated()) {
-                QUI.getMessageHandler(function (MH) {
-                    MH.addAttention(
-                        QUILocale.get(lg, 'changeauth.generate.keyfile')
-                    );
-                });
-
-                return false;
-            }
-
-            if (!this.$UploadFormNew.getKeyFileContent()) {
-                QUI.getMessageHandler(function (MH) {
-                    MH.addAttention(
-                        QUILocale.get(lg, 'changeauth.upload.new.keyfile')
-                    );
-                });
-
-                return false;
-            }
-
-            return true;
+        enable: function () {
+            this.$KeyFileBtn.enable();
         },
 
         /**
-         * Return old authentication information
-         *
-         * @return {string}
+         * Disable the element for authentication data input
          */
-        getOldAuthData: function () {
-            return this.$UploadFormOld.getKeyFileContent();
+        disable: function () {
+            this.$KeyFileBtn.disable();
         },
 
         /**
@@ -149,8 +129,8 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth', [
          *
          * @return {string}
          */
-        getNewAuthData: function () {
-            return this.$UploadFormNew.getKeyFileContent();
+        getAuthData: function () {
+            return this.$UploadForm.getKeyFileContent();
         }
     });
 });
