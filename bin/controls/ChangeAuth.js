@@ -1,30 +1,30 @@
 /**
  * ChangeAuth for authentication plugin
  *
- * @module package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth
+ * @module package/sequry/auth-keyfile/bin/controls/ChangeAuth
  * @author www.pcsg.de (Patrick Müller)
  *
  * @event onSubmit
  */
-define('package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth', [
+define('package/sequry/auth-keyfile/bin/controls/ChangeAuth', [
 
     'qui/QUI',
-    'package/pcsg/grouppasswordmanager/bin/controls/authPlugins/ChangeAuth',
-    'package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn',
-    'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
+    'package/sequry/core/bin/controls/authPlugins/ChangeAuth',
+    'package/sequry/auth-keyfile/bin/controls/CreateKeyFileBtn',
+    'package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm',
     'Locale',
 
-    'css!package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth.css'
+    'css!package/sequry/auth-keyfile/bin/controls/ChangeAuth.css'
 
 ], function (QUI, ChangeAuthBaseClass, CreateKeyFileBtn, KeyFileUploadForm, QUILocale) {
     "use strict";
 
-    var lg = 'pcsg/gpmauthkeyfile';
+    var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
         Extends: ChangeAuthBaseClass,
-        Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth',
+        Type   : 'package/sequry/auth-keyfile/bin/controls/ChangeAuth',
 
         Binds: [
             'getOldAuthData',

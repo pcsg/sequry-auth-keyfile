@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <locales>
 
-    <groups name="pcsg/gpmauthkeyfile" datatype="php">
+    <groups name="sequry/auth-keyfile" datatype="php">
 
         <!-- Class: AuthPlugin -->
         <locale name="exception.user.already.registered">
@@ -47,7 +47,7 @@
 
     </groups>
 
-    <groups name="pcsg/gpmauthkeyfile" datatype="php,js">
+    <groups name="sequry/auth-keyfile" datatype="php,js">
 
         <locale name="plugin.name">
             <de><![CDATA[Schlüssel-Datei]]></de>
@@ -58,7 +58,7 @@
 
     </groups>
 
-    <groups name="pcsg/gpmauthkeyfile" datatype="js">
+    <groups name="sequry/auth-keyfile" datatype="js">
 
         <!-- Control: Registration -->
         <locale name="registration.generate.label">

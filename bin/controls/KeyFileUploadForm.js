@@ -1,33 +1,29 @@
 /**
  * Upload form for authentication key files
  *
- * @module package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm
+ * @module package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm
  * @author www.pcsg.de (Patrick Müller)
- *
- * @require controls/upload/Form
- * @require Locale
- * @require css!package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm.css
  *
  * @event onSubmit
  */
-define('package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm', [
+define('package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm', [
 
     'qui/controls/Control',
 
     'Ajax',
     'Locale',
 
-    'css!package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm.css'
+    'css!package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm.css'
 
 ], function (QUIControl, QUIAjax, QUILocale) {
     "use strict";
 
-    var lg = 'pcsg/gpmauthkeyfile';
+    var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
+        Type   : 'package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm',
 
         Binds: [
             'getKeyFileContent'

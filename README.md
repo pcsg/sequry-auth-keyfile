@@ -5,7 +5,7 @@ Authentifizierungs-Plugin für den QUIQQER Passwort-Manager. Authentifizierung a
 
 Paketname:
 
-    pcsg/gpmauthkeyfile
+    sequry/auth-keyfile
 
 
 Features (Funktionen)
@@ -15,7 +15,7 @@ Authentifizierung anhand einer Datei, die hochgeladen wird.
 Installation
 ------------
 
-Der Paketname ist: pcsg/gpmauthkeyfile
+Der Paketname ist: sequry/auth-keyfile
 
 
 Mitwirken

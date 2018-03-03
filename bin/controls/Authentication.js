@@ -1,32 +1,28 @@
 /**
  * Authentication for keyfile auth plugin
  *
- * @module package/pcsg/gpmauthkeyfile/bin/controls/Authentication
+ * @module package/sequry/auth-keyfile/bin/controls/Authentication
  * @author www.pcsg.de (Patrick Müller)
- *
- * @require qui/controls/Control
- * @require Locale
- * @require css!package/pcsg/gpmauthkeyfile/bin/controls/Authentication.css
  *
  * @event onSubmit
  */
-define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
+define('package/sequry/auth-keyfile/bin/controls/Authentication', [
 
-    'package/pcsg/grouppasswordmanager/bin/controls/authPlugins/Authentication',
-    'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
+    'package/sequry/core/bin/controls/authPlugins/Authentication',
+    'package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm',
     'Locale',
 
-    'css!package/pcsg/gpmauthkeyfile/bin/controls/Authentication.css'
+    'css!package/sequry/auth-keyfile/bin/controls/Authentication.css'
 
 ], function (AuthenticationBaseClass, KeyFileUploadForm, QUILocale) {
     "use strict";
 
-    var lg = 'pcsg/gpmauthkeyfile';
+    var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
         Extends: AuthenticationBaseClass,
-        Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/Authentication',
+        Type   : 'package/sequry/auth-keyfile/bin/controls/Authentication',
 
         Binds: [
             'getAuthData'

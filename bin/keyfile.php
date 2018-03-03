@@ -1,7 +1,7 @@
 <?php
 
-use Pcsg\GroupPasswordManager\Security\Hash;
-use Pcsg\GroupPasswordManager\Security\HiddenString;
+use Sequry\Core\Security\Hash;
+use Sequry\Core\Security\HiddenString;
 use QUI\Utils\System\File;
 
 define('QUIQQER_SYSTEM', true);
@@ -19,7 +19,7 @@ $fileName = mb_substr(bin2hex(Hash::create(
     new HiddenString($userId), base64_decode($_REQUEST['salt']))
 ), 0, 32);
 
-$varDir  = QUI::getPackage('pcsg/gpmauthkeyfile')->getVarDir();
+$varDir  = QUI::getPackage('sequry/auth-keyfile')->getVarDir();
 $keyFile = $varDir . $fileName . '.keyfile';
 
 if (file_exists($keyFile)) {

@@ -1,33 +1,29 @@
 /**
  * Registration for authentication plugin
  *
- * @module package/pcsg/gpmauthkeyfile/bin/controls/Registration
+ * @module package/sequry/auth-keyfile/bin/controls/Registration
  * @author www.pcsg.de (Patrick Müller)
- *
- * @require qui/controls/Control
- * @require Locale
- * @require css!package/pcsg/gpmauthkeyfile/bin/controls/Registration.css
  *
  * @event onSubmit
  */
-define('package/pcsg/gpmauthkeyfile/bin/controls/Registration', [
+define('package/sequry/auth-keyfile/bin/controls/Registration', [
 
     'qui/controls/Control',
-    'package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn',
-    'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
+    'package/sequry/auth-keyfile/bin/controls/CreateKeyFileBtn',
+    'package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm',
     'Locale',
 
-    'css!package/pcsg/gpmauthkeyfile/bin/controls/Registration.css'
+    'css!package/sequry/auth-keyfile/bin/controls/Registration.css'
 
 ], function (QUIControl, CreateKeyFileBtn, KeyFileUploadForm, QUILocale) {
     "use strict";
 
-    var lg = 'pcsg/gpmauthkeyfile';
+    var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
         Extends: QUIControl,
-        Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/Registration',
+        Type   : 'package/sequry/auth-keyfile/bin/controls/Registration',
 
         Binds: [
             'getAuthData'
