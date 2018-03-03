@@ -1,26 +1,26 @@
 <?php
 
 /**
- * This file contains \Pcsg\GpmAuthSecondPassword\AuthPlugin
+ * This file contains \Sequry\Auth\Keyfile\AuthPlugin
  */
 
-namespace Pcsg\GpmAuthKeyFile;
+namespace Sequry\Auth\Keyfile;
 
-use Pcsg\GroupPasswordManager\Actors\CryptoUser;
-use Pcsg\GroupPasswordManager\Security\Hash;
-use Pcsg\GroupPasswordManager\Security\KDF;
-use Pcsg\GroupPasswordManager\Security\Keys\Key;
-use Pcsg\GroupPasswordManager\Security\MAC;
-use Pcsg\GroupPasswordManager\Security\Random;
-use Pcsg\GroupPasswordManager\Security\Utils;
+use Sequry\Core\Actors\CryptoUser;
+use Sequry\Core\Security\Hash;
+use Sequry\Core\Security\KDF;
+use Sequry\Core\Security\Keys\Key;
+use Sequry\Core\Security\MAC;
+use Sequry\Core\Security\Random;
+use Sequry\Core\Security\Utils;
 use QUI;
-use Pcsg\GroupPasswordManager\Security\Interfaces\IAuthPlugin;
-use Pcsg\GroupPasswordManager\Security\Handler\Authentication;
+use Sequry\Core\Security\Interfaces\IAuthPlugin;
+use Sequry\Core\Security\Handler\Authentication;
+use Sequry\Core\Security\HiddenString;
 
 /**
  * Class Events
  *
- * @package pcsg/gpmauthkeyfile
  * @author www.pcsg.de (Patrick Müller)
  */
 class AuthPlugin implements IAuthPlugin
@@ -36,24 +36,40 @@ class AuthPlugin implements IAuthPlugin
     protected static $authInformation = array();
 
     /**
-     * Return internal name of auth plugin
+     * Return locale data for auth plugin name
      *
-     * @return String
+     * @return array
      */
-    public static function getName()
+    public static function getNameLocaleData()
     {
-        return self::NAME;
+        return array(
+            'sequry/auth-keyfile',
+            'plugin.name'
+        );
+    }
+
+    /**
+     * Return locale data for auth plugin description
+     *
+     * @return array
+     */
+    public static function getDescriptionLocaleData()
+    {
+        return array(
+            'sequry/auth-keyfile',
+            'plugin.description'
+        );
     }
 
     /**
      * Authenticate a user with this plugin
      *
-     * @param mixed $information
+     * @param HiddenString $information
      * @param \QUI\Users\User $User (optional) - if omitted, use current session user
      * @return true - if authenticated
      * @throws QUI\Exception
      */
-    public static function authenticate($information, $User = null)
+    public static function authenticate(HiddenString $information, $User = null)
     {
         if (is_null($User)) {
             $User = QUI::getUserBySession();
@@ -62,7 +78,7 @@ class AuthPlugin implements IAuthPlugin
         if (!self::isRegistered($User)) {
             // @todo eigenen 401 error code
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.user.not.registered'
             ));
         }
@@ -93,7 +109,7 @@ class AuthPlugin implements IAuthPlugin
 
         $macExpected = $data['MAC'];
         $macActual   = MAC::create(
-            implode('', $macData),
+            new HiddenString(implode('', $macData)),
             Utils::getSystemPasswordAuthKey()
         );
 
@@ -104,7 +120,7 @@ class AuthPlugin implements IAuthPlugin
             );
 
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.user.authentication.data.not.authentic'
             ));
         }
@@ -116,7 +132,7 @@ class AuthPlugin implements IAuthPlugin
 
         if (!MAC::compare($hashExpected, $hashActual)) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.user.authentication.data.wrong'
             ));
         }
@@ -156,7 +172,7 @@ class AuthPlugin implements IAuthPlugin
 
         if (!self::isAuthenticated($User)) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.derive.key.user.not.authenticated'
             ));
         }
@@ -171,20 +187,20 @@ class AuthPlugin implements IAuthPlugin
      */
     public static function getAuthenticationControl()
     {
-        return 'package/pcsg/gpmauthkeyfile/bin/controls/Authentication';
+        return 'package/sequry/auth-keyfile/bin/controls/Authentication';
     }
 
     /**
      * Change authentication information
      *
-     * @param mixed $old - current authentication information
-     * @param mixed $new - new authentication information
+     * @param HiddenString $old - current authentication information
+     * @param HiddenString $new - new authentication information
      * @param \QUI\Users\User $User (optional) - if omitted, use current session user
      *
      * @return void
      * @throws QUI\Exception
      */
-    public static function changeAuthenticationInformation($old, $new, $User = null)
+    public static function changeAuthenticationInformation(HiddenString $old, HiddenString $new, $User = null)
     {
         if (is_null($User)) {
             $User = QUI::getUserBySession();
@@ -192,7 +208,7 @@ class AuthPlugin implements IAuthPlugin
 
         if (!self::isRegistered($User)) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.change.auth.user.not.registered'
             ));
         }
@@ -202,17 +218,15 @@ class AuthPlugin implements IAuthPlugin
             self::authenticate($old, $User);
         } catch (\Exception $Exception) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.change.auth.old.information.wrong'
             ));
         }
 
         // check new authentication information
-        $new = trim($new);
-
         if (empty($new)) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.change.auth.new.information.empty'
             ));
         }
@@ -231,7 +245,7 @@ class AuthPlugin implements IAuthPlugin
         );
 
         $macValue = MAC::create(
-            implode('', $macData),
+            new HiddenString(implode('', $macData)),
             Utils::getSystemPasswordAuthKey()
         );
 
@@ -280,13 +294,13 @@ class AuthPlugin implements IAuthPlugin
     /**
      * Registers a user with this plugin
      *
-     * @param mixed $information - authentication information given by the user
+     * @param HiddenString $information - authentication information given by the user
      * @param \QUI\Users\User $User (optional) - if omitted, use current session user
      * @return string - authentication information
      *
      * @throws QUI\Exception
      */
-    public static function register($information, $User = null)
+    public static function register(HiddenString $information, $User = null)
     {
         if (is_null($User)) {
             $User = QUI::getUserBySession();
@@ -294,16 +308,14 @@ class AuthPlugin implements IAuthPlugin
 
         if (self::isRegistered($User)) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.user.already.registered'
             ));
         }
 
-        if (!is_string($information)
-            || empty($information)
-        ) {
+        if (empty($information->getString())) {
             throw new QUI\Exception(array(
-                'pcsg/gpmauthkeyfile',
+                'sequry/auth-keyfile',
                 'exception.register.invalid.registration.information'
             ));
         }
@@ -320,7 +332,7 @@ class AuthPlugin implements IAuthPlugin
         );
 
         $macValue = MAC::create(
-            implode('', $macData),
+            new HiddenString(implode('', $macData)),
             Utils::getSystemPasswordAuthKey()
         );
 
@@ -395,7 +407,7 @@ class AuthPlugin implements IAuthPlugin
      */
     public static function getRegistrationControl()
     {
-        return 'package/pcsg/gpmauthkeyfile/bin/controls/Registration';
+        return 'package/sequry/auth-keyfile/bin/controls/Registration';
     }
 
     /**
@@ -405,11 +417,7 @@ class AuthPlugin implements IAuthPlugin
      */
     public static function registerPlugin()
     {
-        Authentication::registerPlugin(
-            self::class,
-            self::NAME,
-            'Authentifizierung per Schlüssel-Datei'
-        );
+        Authentication::registerPlugin(new self());
     }
 
     /**
@@ -419,7 +427,7 @@ class AuthPlugin implements IAuthPlugin
      */
     public static function getChangeAuthenticationControl()
     {
-        return 'package/pcsg/gpmauthkeyfile/bin/controls/ChangeAuth';
+        return 'package/sequry/auth-keyfile/bin/controls/ChangeAuth';
     }
 
     /**

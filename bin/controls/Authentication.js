@@ -1,32 +1,28 @@
 /**
  * Authentication for keyfile auth plugin
  *
- * @module package/pcsg/gpmauthkeyfile/bin/controls/Authentication
+ * @module package/sequry/auth-keyfile/bin/controls/Authentication
  * @author www.pcsg.de (Patrick Müller)
- *
- * @require qui/controls/Control
- * @require Locale
- * @require css!package/pcsg/gpmauthkeyfile/bin/controls/Authentication.css
  *
  * @event onSubmit
  */
-define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
+define('package/sequry/auth-keyfile/bin/controls/Authentication', [
 
-    'qui/controls/Control',
-    'package/pcsg/gpmauthkeyfile/bin/controls/KeyFileUploadForm',
+    'package/sequry/core/bin/controls/authPlugins/Authentication',
+    'package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm',
     'Locale',
 
-    'css!package/pcsg/gpmauthkeyfile/bin/controls/Authentication.css'
+    'css!package/sequry/auth-keyfile/bin/controls/Authentication.css'
 
-], function (QUIControl, KeyFileUploadForm, QUILocale) {
+], function (AuthenticationBaseClass, KeyFileUploadForm, QUILocale) {
     "use strict";
 
-    var lg = 'pcsg/gpmauthkeyfile';
+    var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
-        Extends: QUIControl,
-        Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/Authentication',
+        Extends: AuthenticationBaseClass,
+        Type   : 'package/sequry/auth-keyfile/bin/controls/Authentication',
 
         Binds: [
             'getAuthData'
@@ -35,21 +31,17 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
         initialize: function (options) {
             this.parent(options);
             this.$UploadForm = null;
+            this.$Content    = null;
         },
 
         /**
-         * create the domnode element
-         *
-         * @return {HTMLDivElement}
+         * Event: onImport
          */
-        create: function () {
-            this.$Elm = this.parent();
+        $onImport: function () {
+            this.parent();
 
-            this.$Elm.setProperty('class', 'gpm-auth-keyfile-authentication');
-
-            this.$Elm.set(
-                'html',
-                '<div class="gpm-auth-keyfile-authentication-upload">' +
+            this.$Content = new Element('div', {
+                html: '<div class="gpm-auth-keyfile-authentication-upload">' +
                 '<label>' +
                 '<span class="gpm-auth-keyfile-authentication-title">' +
                 QUILocale.get(lg, 'authentication.upload.label') +
@@ -57,17 +49,46 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/Authentication', [
                 '<div class="gpm-auth-keyfile-upload"/></div>' +
                 '</label>' +
                 '</div>'
-            );
+            }).inject(this.$Input, 'before');
 
             this.$UploadForm = new KeyFileUploadForm().inject(
-                this.$Elm.getElement('.gpm-auth-keyfile-upload')
+                this.$Content.getElement('.gpm-auth-keyfile-upload')
             );
-
-            return this.$Elm;
         },
 
+        /**
+         * Focus the element for authentication data input
+         */
         focus: function () {
             this.$UploadForm.getElm().focus();
+        },
+
+        /**
+         * Enable the element for authentication data input
+         */
+        enable: function () {
+            this.$Input.disabled = false;
+        },
+
+        /**
+         * Disable the element for authentication data input
+         */
+        disable: function () {
+            this.$Input.disabled = true;
+        },
+
+        /**
+         * Show the element for authentication data input
+         */
+        show: function () {
+            this.$Content.setStyle('display', '');
+        },
+
+        /**
+         * Hide the element for authentication data input
+         */
+        hide: function () {
+            this.$Content.setStyle('display', 'none');
         },
 
         /**

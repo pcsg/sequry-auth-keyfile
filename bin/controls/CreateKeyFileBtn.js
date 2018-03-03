@@ -1,16 +1,12 @@
 /**
  * Creates a random key file for authentication purposes
  *
- * @module package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn
+ * @module package/sequry/auth-keyfile/bin/controls/CreateKeyFileBtn
  * @author www.pcsg.de (Patrick Müller)
- *
- * @require qui/controls/buttons/Button
- * @require Ajax
- * @require Locale
  *
  * @event onSubmit
  */
-define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
+define('package/sequry/auth-keyfile/bin/controls/CreateKeyFileBtn', [
 
     'qui/controls/buttons/Button',
 
@@ -20,12 +16,12 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
 ], function (QUIButton, QUIAjax, QUILocale) {
     "use strict";
 
-    var lg = 'pcsg/gpmauthkeyfile';
+    var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
         Extends: QUIButton,
-        Type   : 'package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn',
+        Type   : 'package/sequry/auth-keyfile/bin/controls/CreateKeyFileBtn',
 
         Binds: [
             '$onInject',
@@ -51,7 +47,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
         $onClick: function () {
             var self = this;
 
-            QUIAjax.get('package_pcsg_gpmauthkeyfile_ajax_generateKeyFile', function(downloadUrl) {
+            QUIAjax.get('package_sequry_auth-keyfile_ajax_generateKeyFile', function(downloadUrl) {
                 new Element('iframe', {
                     src   : downloadUrl,
                     id    : 'pcsg-gpm-auth-keyfile-download-' + String.uniqueID(),
@@ -67,7 +63,7 @@ define('package/pcsg/gpmauthkeyfile/bin/controls/CreateKeyFileBtn', [
                 self.disable();
                 self.$keyGenerated = true;
             }, {
-                'package': 'pcsg/gpmauthkeyfile'
+                'package': 'sequry/auth-keyfile'
             });
         },
 
