@@ -49,6 +49,13 @@
 
     <groups name="sequry/auth-keyfile" datatype="php,js">
 
+        <locale name="package.title">
+            <de><![CDATA[Sequry-Authentifizierung mit Schlüssel-Datei]]></de>
+        </locale>
+        <locale name="package.description">
+            <de><![CDATA[Authentifizierung für verschlüsselte Daten in Sequry mittels Datei-Upload.]]></de>
+        </locale>
+
         <locale name="plugin.name">
             <de><![CDATA[Schlüssel-Datei]]></de>
         </locale>

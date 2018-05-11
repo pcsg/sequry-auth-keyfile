@@ -1,40 +1,44 @@
-gpmauthkeyfile
+![Sequry Authentication - Keyfile](bin/images/Readme.jpg)
+
+Sequry
 ========
 
-Authentifizierungs-Plugin für den QUIQQER Passwort-Manager. Authentifizierung anhand einer Datei, die hochgeladen wird.
+Authentication module for Sequry password manager. Authenticate with a key file.
 
-Paketname:
+Package Name:
 
     sequry/auth-keyfile
 
-
-Features (Funktionen)
+Features
 --------
-Authentifizierung anhand einer Datei, die hochgeladen wird.
+
+* Easily authenticate to work with your secret data with a file that you upload
+* **Hint:** You can store this file on a USB stick you carry with you to keep it in a safe place!
 
 Installation
 ------------
+The Package Name is: sequry/auth-keyfile
 
-Der Paketname ist: sequry/auth-keyfile
+Usage
+-----
+After you installed this package every Sequry user can register for this authentication module.
 
+Do not forget to add this authentication module to your Security Classes.
 
-Mitwirken
+Contribute
 ----------
-
-- Issue Tracker: 
-- Source Code: 
-
+- Project: https://dev.quiqqer.com/sequry/core
+- Issue Tracker: https://dev.quiqqer.com/sequry/core/issues
+- Source Code: https://dev.quiqqer.com/sequry/core/tree/master
 
 Support
 -------
+If you have found any errors, have wishes or suggestions for improvement,
+you can contact us by email at support@pcsg.de or create an issue in the issue tracker.
 
-Falls Sie einen Fehler gefunden haben oder Verbesserungen wünschen,
-senden Sie bitte eine E-Mail an support@pcsg.de.
+We will try to meet your needs or send them to the responsible developers
+of the project.
 
-
-Lizenz
+License
 -------
-
-
-Entwickler
---------
+GPL-3.0+
