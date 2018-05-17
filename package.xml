@@ -10,7 +10,7 @@
             <locale group="sequry/auth-keyfile" var="package.description"/>
         </description>
 
-        <!--<image src="URL_OPT_DIR/quiqqer/frontend-users/bin/images/Logo.jpg"/>-->
+        <image src="URL_OPT_DIR/sequry/auth-keyfile/bin/images/Logo.png"/>
 
         <!--<preview>-->
             <!---->

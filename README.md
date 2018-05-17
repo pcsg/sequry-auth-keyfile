@@ -1,6 +1,6 @@
-![Sequry Authentication - Keyfile](bin/images/Readme.jpg)
+![Sequry Authentication - Keyfile](bin/images/Readme.png)
 
-Sequry
+Sequry - Keyfile Authentication
 ========
 
 Authentication module for Sequry password manager. Authenticate with a key file.
@@ -27,9 +27,9 @@ Do not forget to add this authentication module to your Security Classes.
 
 Contribute
 ----------
-- Project: https://dev.quiqqer.com/sequry/core
-- Issue Tracker: https://dev.quiqqer.com/sequry/core/issues
-- Source Code: https://dev.quiqqer.com/sequry/core/tree/master
+- Project: https://dev.quiqqer.com/sequry/auth-keyfile
+- Issue Tracker: https://dev.quiqqer.com/sequry/auth-keyfile/issues
+- Source Code: https://dev.quiqqer.com/sequry/auth-keyfile/tree/master
 
 Support
 -------
