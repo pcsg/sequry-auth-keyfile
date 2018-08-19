@@ -8,21 +8,25 @@
  */
 define('package/sequry/auth-keyfile/bin/controls/Registration', [
 
-    'qui/controls/Control',
+    'package/sequry/core/bin/controls/authPlugins/Registration',
+
     'package/sequry/auth-keyfile/bin/controls/CreateKeyFileBtn',
     'package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm',
+
+    'Mustache',
     'Locale',
 
+    'text!package/sequry/auth-keyfile/bin/controls/Registration.html',
     'css!package/sequry/auth-keyfile/bin/controls/Registration.css'
 
-], function (QUIControl, CreateKeyFileBtn, KeyFileUploadForm, QUILocale) {
+], function (RegistrationBaseClass, CreateKeyFileBtn, KeyFileUploadForm, Mustache, QUILocale, template) {
     "use strict";
 
     var lg = 'sequry/auth-keyfile';
 
     return new Class({
 
-        Extends: QUIControl,
+        Extends: RegistrationBaseClass,
         Type   : 'package/sequry/auth-keyfile/bin/controls/Registration',
 
         Binds: [
@@ -31,48 +35,35 @@ define('package/sequry/auth-keyfile/bin/controls/Registration', [
 
         initialize: function (options) {
             this.parent(options);
+
             this.$UploadForm = null;
+
+            this.addEvents({
+                onInject: this.$onInject
+            });
         },
 
         /**
-         * create the domnode element
-         *
-         * @return {HTMLDivElement}
+         * event : on inject
          */
-        create: function () {
-            this.$Elm = this.parent();
+        $onInject: function () {
+            var lgPrefix = 'controls.Registration.template.';
 
-            this.$Elm.setProperty('class', 'gpm-auth-keyfile-registration');
-
-            this.$Elm.set(
-                'html',
-                '<div class="gpm-auth-keyfile-registration-generate">' +
-                '<label>' +
-                '<span class="gpm-auth-keyfile-registration-title">' +
-                QUILocale.get(lg, 'registration.generate.label') +
-                '</span>' +
-                '<div class="gpm-auth-keyfile-btn"/></div>' +
-                '</label>' +
-                '</div>' +
-                '<div class="gpm-auth-keyfile-registration-upload">' +
-                '<label>' +
-                '<span class="gpm-auth-keyfile-registration-title">' +
-                QUILocale.get(lg, 'registration.upload.label') +
-                '</span>' +
-                '<div class="gpm-auth-keyfile-upload"/></div>' +
-                '</label>' +
-                '</div>'
-            );
+            var Content = new Element('div', {
+                'class': 'sequry-auth-keyfile-registration',
+                html   : Mustache.render(template, {
+                    labelGenerate: QUILocale.get(lg, lgPrefix + 'labelGenerate'),
+                    labelUpload  : QUILocale.get(lg, lgPrefix + 'labelUpload')
+                })
+            }).inject(this.$Elm);
 
             new CreateKeyFileBtn().inject(
-                this.$Elm.getElement('.gpm-auth-keyfile-btn')
+                Content.getElement('.sequry-auth-keyfile-registration-generate')
             );
 
             this.$UploadForm = new KeyFileUploadForm().inject(
-                this.$Elm.getElement('.gpm-auth-keyfile-upload')
+                Content.getElement('.sequry-auth-keyfile-registration-upload')
             );
-
-            return this.$Elm;
         },
 
         /**
@@ -80,7 +71,7 @@ define('package/sequry/auth-keyfile/bin/controls/Registration', [
          *
          * @return {string}
          */
-        getRegistrationData: function () {
+        getAuthData: function () {
             return this.$UploadForm.getKeyFileContent();
         }
     });

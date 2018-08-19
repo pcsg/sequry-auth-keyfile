@@ -68,14 +68,11 @@
     <groups name="sequry/auth-keyfile" datatype="js">
 
         <!-- Control: Registration -->
-        <locale name="registration.generate.label">
+        <locale name="controls.Registration.template.labelGenerate">
             <de><![CDATA[1. Schritt: Schlüssel-Datei generieren (Bitte speichern sie die generierte Date an einem sicheren Ort, wie z.B. einem USB-Stick, den sie immer mit sich führen)]]></de>
         </locale>
-        <locale name="registration.upload.label">
+        <locale name="controls.Registration.template.labelUpload">
             <de><![CDATA[2. Schritt: Schlüssel-Datei hochladen]]></de>
-        </locale>
-        <locale name="registration.btn.text">
-            <de><![CDATA[Schlüssel-Datei generieren]]></de>
         </locale>
 
         <!-- Control: ChangeAuth -->
