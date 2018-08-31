@@ -87,6 +87,13 @@ class AuthPlugin implements IAuthPlugin
             return true;
         }
 
+        if (empty($information->getString())) {
+            throw new QUI\Exception(array(
+                'sequry/auth-keyfile',
+                'exception.authenticate.information_empty'
+            ));
+        }
+
         // get salt
         $result = QUI::getDataBase()->fetch(array(
 //            'select' => array(
@@ -224,12 +231,33 @@ class AuthPlugin implements IAuthPlugin
         }
 
         // check new authentication information
-        if (empty($new)) {
+        if (empty($new->getString())) {
             throw new QUI\Exception(array(
                 'sequry/auth-keyfile',
                 'exception.change.auth.new.information.empty'
             ));
         }
+
+        // Check if user generated and used the key file provided by Sequry
+        $sessionKeyHash = QUI::getSession()->get('sequry.auth_keyfile.keyfile_hash');
+
+        if (empty($sessionKeyHash)) {
+            throw new QUI\Exception(array(
+                'sequry/auth-keyfile',
+                'exception.register.no_keyfile_generated'
+            ));
+        }
+
+        $checkHash = hash('sha256', $new->getString());
+
+        if (!hash_equals($checkHash, $sessionKeyHash)) {
+            throw new QUI\Exception(array(
+                'sequry/auth-keyfile',
+                'exception.register.hash_mismatch'
+            ));
+        }
+
+        QUI::getSession()->set('sequry.auth_keyfile.keyfile_hash', null);
 
         // set new user password
         $keyFileSalt = Random::getRandomData();
@@ -319,6 +347,27 @@ class AuthPlugin implements IAuthPlugin
                 'exception.register.invalid.registration.information'
             ));
         }
+
+        // Check if user generated and used the key file provided by Sequry
+        $sessionKeyHash = QUI::getSession()->get('sequry.auth_keyfile.keyfile_hash');
+
+        if (empty($sessionKeyHash)) {
+            throw new QUI\Exception(array(
+                'sequry/auth-keyfile',
+                'exception.register.no_keyfile_generated'
+            ));
+        }
+
+        $checkHash = hash('sha256', $information->getString());
+
+        if (!hash_equals($checkHash, $sessionKeyHash)) {
+            throw new QUI\Exception(array(
+                'sequry/auth-keyfile',
+                'exception.register.hash_mismatch'
+            ));
+        }
+
+        QUI::getSession()->set('sequry.auth_keyfile.keyfile_hash', null);
 
         $keyFileSalt = Random::getRandomData();
         $keyFileHash = Hash::create($information, $keyFileSalt);

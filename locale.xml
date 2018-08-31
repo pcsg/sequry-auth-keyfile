@@ -19,6 +19,12 @@
         <locale name="exception.register.passwords.not.equal">
             <de><![CDATA[Die Passwörter, die zur Registrierung übergeben wurde, sind nicht identisch.]]></de>
         </locale>
+        <locale name="exception.register.no_keyfile_generated">
+            <de><![CDATA[Bitte generieren Sie zuerst eine neue Schlüssel-Datei.]]></de>
+        </locale>
+        <locale name="exception.register.hash_mismatch">
+            <de><![CDATA[Bitte verwenden Sie die Schlüssel-Datei, die Sie neu generiert haben.]]></de>
+        </locale>
         <locale name="exception.user.authentication.data.wrong">
             <de><![CDATA[Die Authentifizierungsinformationen sind nicht korrekt.]]></de>
         </locale>
@@ -33,6 +39,9 @@
         </locale>
         <locale name="exception.user.authentication.data.not.authentic">
             <de><![CDATA[Die neuen Authentifizierungsinformationen haben die Authentizitätsprüfung nicht bestanden. Bitte kontaktieren Sie einen Administrator.]]></de>
+        </locale>
+        <locale name="exception.authenticate.information_empty">
+            <de><![CDATA[Bitte laden Sie Ihre aktuelle Schlüssel-Datei hoch.]]></de>
         </locale>
 
         <!-- Class: Events -->
