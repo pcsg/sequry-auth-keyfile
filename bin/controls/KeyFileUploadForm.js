@@ -69,6 +69,11 @@ define('package/sequry/auth-keyfile/bin/controls/KeyFileUploadForm', [
 
             InputElm.addEvents({
                 change: function (event) {
+                    if (!event.target.files.length) {
+                        self.$fileContent = null;
+                        return;
+                    }
+
                     var File = event.target.files[0];
                     var Reader = new FileReader();
 
