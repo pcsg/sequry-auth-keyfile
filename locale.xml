@@ -19,6 +19,12 @@
         <locale name="exception.register.passwords.not.equal">
             <de><![CDATA[Die Passwörter, die zur Registrierung übergeben wurde, sind nicht identisch.]]></de>
         </locale>
+        <locale name="exception.register.no_keyfile_generated">
+            <de><![CDATA[Bitte generieren Sie zuerst eine neue Schlüssel-Datei.]]></de>
+        </locale>
+        <locale name="exception.register.hash_mismatch">
+            <de><![CDATA[Bitte verwenden Sie die Schlüssel-Datei, die Sie neu generiert haben.]]></de>
+        </locale>
         <locale name="exception.user.authentication.data.wrong">
             <de><![CDATA[Die Authentifizierungsinformationen sind nicht korrekt.]]></de>
         </locale>
@@ -33,6 +39,9 @@
         </locale>
         <locale name="exception.user.authentication.data.not.authentic">
             <de><![CDATA[Die neuen Authentifizierungsinformationen haben die Authentizitätsprüfung nicht bestanden. Bitte kontaktieren Sie einen Administrator.]]></de>
+        </locale>
+        <locale name="exception.authenticate.information_empty">
+            <de><![CDATA[Bitte laden Sie Ihre aktuelle Schlüssel-Datei hoch.]]></de>
         </locale>
 
         <!-- Class: Events -->
@@ -68,14 +77,11 @@
     <groups name="sequry/auth-keyfile" datatype="js">
 
         <!-- Control: Registration -->
-        <locale name="registration.generate.label">
+        <locale name="controls.Registration.template.labelGenerate">
             <de><![CDATA[1. Schritt: Schlüssel-Datei generieren (Bitte speichern sie die generierte Date an einem sicheren Ort, wie z.B. einem USB-Stick, den sie immer mit sich führen)]]></de>
         </locale>
-        <locale name="registration.upload.label">
+        <locale name="controls.Registration.template.labelUpload">
             <de><![CDATA[2. Schritt: Schlüssel-Datei hochladen]]></de>
-        </locale>
-        <locale name="registration.btn.text">
-            <de><![CDATA[Schlüssel-Datei generieren]]></de>
         </locale>
 
         <!-- Control: ChangeAuth -->

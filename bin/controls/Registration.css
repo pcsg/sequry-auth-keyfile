@@ -1,19 +1,13 @@
-.gpm-auth-keyfile-registration label {
+.sequry-auth-keyfile-registration label {
     width: 100% !important;
 }
 
-.gpm-auth-keyfile-registration-generate {
+.sequry-auth-keyfile-registration-generate {
     margin-bottom: 20px;
 }
 
-.gpm-auth-keyfile-registration-generate,
-.gpm-auth-keyfile-registration-upload {
+.sequry-auth-keyfile-registration-generate,
+.sequry-auth-keyfile-registration-upload {
     float: left;
-    width: 100%;
-}
-
-.gpm-auth-keyfile-registration-title {
-    float: left;
-    margin-bottom: 5px;
     width: 100%;
 }

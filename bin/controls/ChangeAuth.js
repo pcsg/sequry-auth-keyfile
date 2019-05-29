@@ -81,35 +81,6 @@ define('package/sequry/auth-keyfile/bin/controls/ChangeAuth', [
             return this.$Elm;
         },
 
-        ///**
-        // * Checks if all necessary form fields are filled
-        // *
-        // * @return {boolean}
-        // */
-        //check: function () {
-        //    if (!this.$KeyFileBtn.isKeyGenerated()) {
-        //        QUI.getMessageHandler(function (MH) {
-        //            MH.addAttention(
-        //                QUILocale.get(lg, 'changeauth.generate.keyfile')
-        //            );
-        //        });
-        //
-        //        return false;
-        //    }
-        //
-        //    if (!this.$UploadForm.getKeyFileContent()) {
-        //        QUI.getMessageHandler(function (MH) {
-        //            MH.addAttention(
-        //                QUILocale.get(lg, 'changeauth.upload.new.keyfile')
-        //            );
-        //        });
-        //
-        //        return false;
-        //    }
-        //
-        //    return true;
-        //},
-
         /**
          * Enable the element for authentication data input
          */
